@@ -8,11 +8,23 @@
 //document.querySelector('[data-title]');
 //main.style.backgroundcolor='green';
 
+
+//getElementsByClassName
 var items = document.getElementsByClassName('list-group-item')
 console.log(items);
 console.log(items[0]);
-items[0].style.fontWeight = 'bold';
+items[0].textContent = 'hello';
 items[1].style.fontWeight = 'bold';
 items[2].style.fontWeight = 'bold';
-items[3].style.fontWeight = 'bold';
-items[2].style.backgroundColor = 'green';
+items[1].style.backgroundColor = 'green';
+
+
+
+//GETELEMENTBYTAGNAME
+var li = document.getElementsByTagName('li');
+console.log(li);
+console.log(li[1]);
+li[1].textContent = 'hello';
+li[1].style.fontWeight = 'bold';
+li[1].style.backgroundColor = 'green';
+
