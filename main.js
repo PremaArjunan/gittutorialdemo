@@ -5,9 +5,9 @@ var filter = document.getElementById('fliter');
 // Form submit event
 form.addEventListener('submit', addItem);
 //Delete event
-itemList.addEventListener('click',removeItem);
+itemList.addEventListener('click', removeItem);
 //Filter event
-//filter.addEventListener('keyup',filterItems);
+//filter.addEventListener('keyup', filterItems);
 
 //Add item
 function addItem(e){
@@ -16,8 +16,15 @@ function addItem(e){
     //Get input value
     var newItem = document.getElementById('item').value;
 
+    //Get input value
+    var newItem = document.getElementById('description').value;
+
     //Creare new li element
     var li = document.createElement('li');
+
+    //Create new description
+    var description = document.createElement('description');
+
     //Add class
     li.className = 'list-group-item';
     //Add text node with input value
@@ -51,8 +58,19 @@ function removeItem(e){
 }
 
 //Filter items
-//function filterItems(e){
+function filterItems(e){
     //Convert text to lowercase
-  //  var text = e.target.value.toLowerCase();
-    //console.log(text);
-//}
+   var text = e.target.value.toLowerCase();
+    //GET LIST
+    var items = itemList.getElementsByTagName('li');
+    //Convert to an array
+    Array.from(items).forEach(function(item){
+        var itemName = item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1){
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+}
