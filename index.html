@@ -31,6 +31,15 @@
                 const parentELem = document.getElementById('listOfitems')
                 const childELem = document.createElement('li')
                 childELem.textContent = obj.name + ' - ' + obj.email + ' - ' + obj.phonenumber
+
+                const deleteButton = document.createElement('input')
+                deleteButton.type = "button";
+                deleteButton.value = "Delete";
+                deleteButton.onclick = () => {
+                    localStorage.removeItem(obj.email)
+                    localStorage.removeChild(childELem)
+                }
+                childELem.appendChild(deleteButton)
                 parentELem.appendChild(childELem)
             }
         </script>
