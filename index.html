@@ -37,10 +37,23 @@
                 deleteButton.value = "Delete";
                 deleteButton.onclick = () => {
                     localStorage.removeItem(obj.email)
-                    localStorage.removeChild(childELem)
+                    parentELem.removeChild(childELem)
+                }
+
+                const editButton = document.createElement('input')
+                editButton.type = "button";
+                editButton.value = "Edit";
+                editButton.onclick = () => {
+                    localStorage.removeItem(obj.email)
+                    parentELem.removeChild(childELem)
+                    document.getElementById('usernameInputTag').value = obj.name
+                    document.getElementById('emailInputTag').value = obj.email
+                    document.getElementById('phoneNumberInputTag').value = obj.phonenumber
                 }
                 childELem.appendChild(deleteButton)
+                childELem.appendChild(editButton)
                 parentELem.appendChild(childELem)
+                
             }
         </script>
     </body>
