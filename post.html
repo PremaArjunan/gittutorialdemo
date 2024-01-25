@@ -1,0 +1,47 @@
+const posts = [];
+let lastActivityTime = null;
+
+function createPost(title) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            posts.push({ title: title });
+            resolve();
+        }, 1000);
+    });
+}
+
+function updateLastUserActivityTime() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            lastActivityTime = new Date().toISOString();
+            resolve(lastActivityTime);
+        }, 1000);
+    });
+}
+
+function deletePost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (posts.length > 0) {
+                const deletedPost = posts.pop();
+                resolve(deletedPost);
+            } else {
+                reject("ERROR: No posts to delete");
+            }
+        }, 1000);
+    });
+}
+
+// Create a post and update user's last activity time
+
+createPost("First Post")
+    .then(() => updateLastUserActivityTime())
+    .then((updatedTime) => {
+        console.log("Last Activity Time:", updatedTime);
+        console.log("All Posts:", posts);
+        return deletePost();
+    })
+    .then(() => {
+        console.log("Remaining Posts:", posts);
+    })
+    .catch((error) => console.log(error));
