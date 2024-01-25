@@ -1,0 +1,116 @@
+function createPost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Post created');
+            resolve();
+        }, 2000);
+    });
+}
+
+function deletePost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Post deleted');
+            resolve();
+        }, 2000);
+    });
+}
+
+function getColdDrinks() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Cold drinks obtained');
+            resolve();
+        }, 1000);
+    });
+}
+
+function handlePosts() {
+    Promise.all([createPost(), deletePost(), getColdDrinks()])
+        .then(() => {
+            console.log('All posts handled');
+        })
+        .catch((error) => {
+            console.log('Error handling posts:', error);
+        });
+}
+
+handlePosts();
+
+And here's the integration using async/await:
+
+async function createPost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Post created');
+            resolve();
+        }, 2000);
+    });
+}
+
+async function deletePost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Post deleted');
+            resolve();
+        }, 2000);
+    });
+}
+
+async function getColdDrinks() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Cold drinks obtained');
+            resolve();
+        }, 1000);
+    });
+}
+
+async function handlePosts() {
+    try {
+        await Promise.all([createPost(), deletePost(), getColdDrinks()]);
+        console.log('All posts handled');
+    } catch (error) {
+        console.log('Error handling posts:', error);
+    }
+}
+
+handlePosts();
+
+Now, let's convert the createPost and deletePost functions into async/await:
+
+const posts = [];
+
+async function createPost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            posts.push({ title: 'New Post' });
+            resolve();
+        }, 2000);
+    });
+}
+
+async function deletePost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (posts.length > 0) {
+                posts.pop();
+                resolve();
+            } else {
+                reject('No posts to delete');
+            }
+        }, 2000);
+    });
+}
+
+async function handlePosts() {
+    try {
+        await createPost();
+        await deletePost();
+        console.log('Remaining posts:', posts);
+    } catch (error) {
+        console.log('Error handling posts:', error);
+    }
+}
+
+handlePosts();
