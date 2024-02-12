@@ -1,44 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    form {
-      background-color: aquamarine;
-      text-align: center;
-      border: 1px solid antiquewhite;
-    }
-
-    h1 {
-      border: 100px green;
-      background-color: greenyellow;
-      color: brown;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
 </head>
+<body>
+    <form class="form-check-inline" onsubmit="onsignup(event)">
+    <div class="container">
+        <label for="sellingprice" class="form-label"><h3>Selling Price</h3></label>
+        <select class="form-select" id="selling">
+            <option>Select</option>
+            <option>100</option>
+            <option>200</option>
+            <option>500</option>
+            <option>1000</option>
+        </select>
+       <label for="product" class="form-label"><h3>Product Name</h3></label>
+        <select class="form-select" id="product">
+        <option>select</option>
+        <option>Soap</option>
+        <option>Sony Playstation</option>
+        <option>Chocolate</option>
+        </select>
+        <label for="choose a category" class="form-label"><h3>Choose a Category</h3></label>
+        <select class="form-select" id="category">
+        <option>select</option>
+        <option>Electronics</option>
+        <option>Skincare</option>
+        <option>Food</option>
+        </select>
+        <button><h3>Add Product</h3></button>
+    </div>
+</form>
+<ul id="project"></ul>
+<script>
+    function onsignup(event){
+        event.preventDefault();
+        const selling=event.target.selling.value
+        const product=event.target.product.value
+        const category=event.target.category.value
+       
+        const obj={
+            selling,
+            product,
+            category
+        }
+        localStorage.setItem(obj.category ,JSON.stringify(obj))
+        showUserOnScreen(obj)
+    }
+    function showUserOnScreen(obj){
+        const parent=document.getElementById('project')
+        const child=document.createElement('li')
+        child.textContent=obj.selling+'-'+obj.product+'-'+obj.category
+        parent.appendChild(child)
 
-<body style="background-color: powderblue;">
-  <h1>Appointment App</h1>
-  <form onsubmit="saveToLocalStorage(event)">
-    <label>Name:</label><br>
-    <input type="text" placeholder="Enter your name..." name="Username" required /><br>
-    <label>Email id:</label><br>
-    <input type="email" placeholder="Enter your Email..." name="emailId" required /><br>
-    <label>Phone Number:</label><br>
-    <input type="tel" placeholder="Enter Phone number..." name="phonenumber" /><br>
+        const editbutton=document.createElement('input')
+        editbutton.type='button'
+        editbutton.value='Edit'
+        editbutton.onclick=()=>{
+            localStorage.removeItem(obj.category)
+            parent.removeChild(child)
+            document.getElementById('selling').value=obj.selling
+            document.getElementById('product').value=obj.product
+            document.getElementById('category').value=obj.category
+        }
+        child.appendChild(editbutton)
+        parent.appendChild(child)
+        
+        const deletebutton=document.createElement('input')
+        deletebutton.type='button'
+        deletebutton.value='Delete'
+        deletebutton.onclick=()=>{
+            localStorage.removeItem(obj.category)
+            parent.removeChild(child)
+        }
+        child.appendChild(deletebutton)
+        parent.appendChild(child)
 
-    <label>Date of Birth:</label><br>
-    <input type="date" placeholder="Enter of Date Birth" name="dob" required><br>
-    <br><button id="userForm">submit</button>
-  </form>
-  <ul id="AddItem"></ul>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js" ></script>
-   <script src="index.js"></script>
-
+    }
+</script>
 </body>
-
 </html>
